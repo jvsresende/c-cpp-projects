@@ -1,24 +1,24 @@
 /*
-Trabalho de C++ feito por Jo„o VÌctor Souza Resende e Gustavo Amaral.
-Este cÛdigo emula um sistema de padaria sem banco de dados, contando com as funÁıes de 
+Trabalho de C++ feito por Jo√£o V√≠ctor Souza Resende.
+Este c√≥digo emula um sistema de padaria sem banco de dados, contando com as fun√ß√µes de 
 cadastrar, pesquisar, alterar, excluir e visualizar todos os dados alocados nos vetores.
-Possui as cores roxo e branco como padr„o e mensagens de erro em vermelho e preto.
-AlÈm disso, tambÈm possui alguns metodos de verificaÁ„o para evitar cadastramento repetido de cÛdigo e exclus„o errada
+Possui as cores roxo e branco como padr√£o e mensagens de erro em vermelho e preto.
+Al√©m disso, tamb√©m possui alguns metodos de verifica√ß√£o para evitar cadastramento repetido de c√≥digo e exclus√£o errada
 de dados.
 */
-#include <iostream>//biblioteca padr„o
+#include <iostream>//biblioteca padr√£o
 using namespace std;//facilitar o uso de cout, cin e vetores
-#include <locale>//usa para configurar a regi„o e linguagem
-#include <windows.h>//usado para acessar as funÁıes do windows
-#include <cctype>//manipulaÁ„o de caracteres, para conversao de minusculas
-#include <algorithm>//funÁıes genericas tipo trasnform
+#include <locale>//usa para configurar a regi√£o e linguagem
+#include <windows.h>//usado para acessar as fun√ß√µes do windows
+#include <cctype>//manipula√ß√£o de caracteres, para conversao de minusculas
+#include <algorithm>//fun√ß√µes genericas tipo trasnform
 
 struct Produto//estrutura dos dados do produto
 {
 	int codigo;//codigo do produto
 	int estoque;//estoque do produto
-	float preco;//preÁo do produto
-	string nome, descricao;//nome e descriÁ„o do produto
+	float preco;//pre√ßo do produto
+	string nome, descricao;//nome e descri√ß√£o do produto
 };
 
 void setColor(int textColor, int backgroundColor)   // void para mudar cor do texto e fundo
@@ -27,7 +27,7 @@ void setColor(int textColor, int backgroundColor)   // void para mudar cor do te
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, (backgroundColor << 4) | textColor);
 }
-string toLowerCase(const string& str)//funÁ„o para transformar o texto em letras minusculas
+string toLowerCase(const string& str)//fun√ß√£o para transformar o texto em letras minusculas
 {
 	string result = str;
 	transform(result.begin(), result.end(), result.begin(), ::tolower);
@@ -38,15 +38,15 @@ int main()
 {
 	setlocale(LC_ALL, "portuguese");
 	int opc = 0;
-//   codigo pesquisa, codigo alteraÁ„o, estoque alteraÁ„o, codigo do produto a ser alterado, codigo para exclus„o e codigo para cadastro
+//   codigo pesquisa, codigo altera√ß√£o, estoque altera√ß√£o, codigo do produto a ser alterado, codigo para exclus√£o e codigo para cadastro
 	int codigop, codigoa, estoquea, alterar, codigoe, codigo;
-	//valor para alteraÁ„o
+	//valor para altera√ß√£o
 	float valora;
-	//nome para pesquisa, alteraÁ„o e descriÁ„o alteraÁ„o
+	//nome para pesquisa, altera√ß√£o e descri√ß√£o altera√ß√£o
 	string nomep, nomea, descricaoa;
 	//escolha do tipo de pesquisa, escolha do que deseja alterar
 	char tipo, desejado;
-	//usado para definir se ir· ou n„o mostrar que algo n„o foi encontrado
+	//usado para definir se ir√° ou n√£o mostrar que algo n√£o foi encontrado
 	bool encontrado = false;
 	//valor das cores
 	int textColor = 0;       // Preto
@@ -55,29 +55,29 @@ int main()
 	int qtd = 5;
 	Produto produtos[qtd];//vetor com base no struct Produto
 
-	//dados prÈ-cadastrados
+	//dados pr√©-cadastrados
 	
-	produtos[0] = {1, 3, 5.4, "Pao de Queijo", "P„o de Queijo feito com amor e carinho e queijo canastra"};
+	produtos[0] = {1, 3, 5.4, "Pao de Queijo", "P√£o de Queijo feito com amor e carinho e queijo canastra"};
 	produtos[1] = {3, 6, 10.8, "Bolo de Chocolate", "Delicioso e Macio Bolo de Chocolate"};
 	produtos[2] = {6, 9, 16.2, "Combo Coxinhas com Coca", "Combo com 10 coxinhas e uma lata de coca-cola de 350ml"};
 	
-	do//Menu e inicio da repetiÁ„o
+	do//Menu e inicio da repeti√ß√£o
 	{
-		system("cls");//limpa a tela a cada nova repetiÁ„o
+		system("cls");//limpa a tela a cada nova repeti√ß√£o
 		system("color 5f");
 		cout << "\n\t\t\t\t|-----------------------------------|\n";
 		cout << "\t\t\t\t|\tBEM-VINDO a PadPadaria!!!   |\n";
 		cout << "\t\t\t\t|---ONDE A SUA FOME, A GENTE MATA---|\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
-		cout << "\t\t\t\t|   1) Cadastrar Produto/ServiÁo    |\n";
+		cout << "\t\t\t\t|   1) Cadastrar Produto/Servi√ßo    |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
-		cout << "\t\t\t\t|   2) Pesquisar Produto/ServiÁo    |\n";
+		cout << "\t\t\t\t|   2) Pesquisar Produto/Servi√ßo    |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
-		cout << "\t\t\t\t|   3) Alterar Produto/ServiÁo      |\n";
+		cout << "\t\t\t\t|   3) Alterar Produto/Servi√ßo      |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
-		cout << "\t\t\t\t|   4) Excluir Produto/ServiÁo      |\n";
+		cout << "\t\t\t\t|   4) Excluir Produto/Servi√ßo      |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
-		cout << "\t\t\t\t|   5) Mostrar Produtos/ServiÁo     |\n";
+		cout << "\t\t\t\t|   5) Mostrar Produtos/Servi√ßo     |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
 		cout << "\t\t\t\t|   0) Sair                         |\n";
 		cout << "\t\t\t\t|-----------------------------------|\n";
@@ -89,7 +89,7 @@ int main()
 		case 1: //Cadastro
 			for(int i = 0; i < qtd; i++)
 			{
-				if(produtos[i].nome == "")//verificaÁ„o se o vetor est· vazio
+				if(produtos[i].nome == "")//verifica√ß√£o se o vetor est√° vazio
 				{
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t|-------CADASTRO DE PRODUTOS:-------|\n";
@@ -98,23 +98,23 @@ int main()
 					do
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|---------INFORME O C”DIGO:---------|\n";
+						cout << "\t\t\t\t|---------INFORME O C√ìDIGO:---------|\n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t";
 						cin >> codigo;
 
-						codigoExistente = false; // Presume que o cÛdigo n„o existe
+						codigoExistente = false; // Presume que o c√≥digo n√£o existe
 
-						// Verifica se o cÛdigo j· foi cadastrado
+						// Verifica se o c√≥digo j√° foi cadastrado
 						for (int j = 0; j < qtd; j++)
 						{
-							if (codigo == produtos[j].codigo)//verifica se o cÛdigo existe
+							if (codigo == produtos[j].codigo)//verifica se o c√≥digo existe
 							{
 								cout << "\t\t\t\t|-----------------------------------|\n";
-								cout << "\t\t\t\t|C”DIGO J¡ EXISTE! Digite Novamente:|\n";
+								cout << "\t\t\t\t|C√ìDIGO J√Å EXISTE! Digite Novamente:|\n";
 								cout << "\t\t\t\t|-----------------------------------|\n";
 								codigoExistente = true;
-								// Interrompe o loop interno e pede um novo cÛdigo
+								// Interrompe o loop interno e pede um novo c√≥digo
 								break;
 							}
 						}
@@ -128,13 +128,13 @@ int main()
 					cin.ignore();
 					getline(cin, produtos[i].nome);
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t|--------INFORME A DESCRI«√O:-------|\n";
+					cout << "\t\t\t\t|--------INFORME A DESCRI√á√ÉO:-------|\n";
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t";
 					cin.ignore();
 					getline(cin, produtos[i].descricao);
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t|---------INFORME O PRE«O:----------|\n";
+					cout << "\t\t\t\t|---------INFORME O PRE√áO:----------|\n";
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t";
 					cin >> produtos[i].preco;
@@ -149,52 +149,52 @@ int main()
 			break;
 		case 2://Pesquisa
 			cout << "\t\t\t\t|-----------------------------------|\n";
-			cout << "\t\t\t\t|--SELECIONE O M…TODO DE PESQUISA:--|\n";//escolha do tipo de pesquisa
+			cout << "\t\t\t\t|--SELECIONE O M√âTODO DE PESQUISA:--|\n";//escolha do tipo de pesquisa
 			cout << "\t\t\t\t|------(N - NOME, C - CODIGO)-------|\n";
 			cout << "\t\t\t\t|-----------------------------------|\n";
 			cout << "\t\t\t\t";
 			cin >> tipo;
-			if(tipo == 'c' || tipo == 'C')//vers„o cÛdigo
+			if(tipo == 'c' || tipo == 'C')//vers√£o c√≥digo
 			{
 				cout << "\t\t\t\t|-----------------------------------|\n";
-				cout << "\t\t\t\t|---QUAL O C”DIGO PARA PESQUISA:----|\n";//Digite o cÛdigo de pesquisa
+				cout << "\t\t\t\t|---QUAL O C√ìDIGO PARA PESQUISA:----|\n";//Digite o c√≥digo de pesquisa
 				cout << "\t\t\t\t|-----------------------------------|\n";
 				cout << "\t\t\t\t";
 				cin >> codigop;
 				for(int i = 0; i < qtd; i++)
 				{
-					if(codigop == produtos[i].codigo)//verificaÁ„o se o cÛdigo est· cadastrado
+					if(codigop == produtos[i].codigo)//verifica√ß√£o se o c√≥digo est√° cadastrado
 					{
-						encontrado = true;//define que o cÛdigo foi cadastrado
+						encontrado = true;//define que o c√≥digo foi cadastrado
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|---------C”DIGO ENCONTRADO---------|\n";
+						cout << "\t\t\t\t|---------C√ìDIGO ENCONTRADO---------|\n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   C”DIGO: " << produtos[i].codigo << endl;
+						cout << "\t\t\t\t   C√ìDIGO: " << produtos[i].codigo << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   NOME: " << produtos[i].nome << endl;//mostra o cÛdigo
+						cout << "\t\t\t\t   NOME: " << produtos[i].nome << endl;//mostra o c√≥digo
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   DESCRI«√O: " << produtos[i].descricao << endl;
+						cout << "\t\t\t\t   DESCRI√á√ÉO: " << produtos[i].descricao << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t   QUANTIDADE NO ESTOQUE: " << produtos[i].estoque << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   PRE«O: " << produtos[i].preco << endl;
+						cout << "\t\t\t\t   PRE√áO: " << produtos[i].preco << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						Sleep(2000);
 						break;
 					}
 				};
-				if(!encontrado)//vers„o que o cÛdigo n„o foi encontrado
+				if(!encontrado)//vers√£o que o c√≥digo n√£o foi encontrado
 				{
 					setColor(textColor, backgroundColor);
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t|-------C”DIGO N√O ENCONTRADO=------|\n" ;
+					cout << "\t\t\t\t|-------C√ìDIGO N√ÉO ENCONTRADO=------|\n" ;
 					cout << "\t\t\t\t|-----------------------------------|\n" << endl;
 					Sleep(1000);
 				}
 				encontrado = false;
 				break;
 			}
-			else if(tipo == 'n' || tipo == 'N')//vers„o nome
+			else if(tipo == 'n' || tipo == 'N')//vers√£o nome
 			{
 				cout << "\t\t\t\t|-----------------------------------|\n";
 				cout << "\t\t\t\t|----QUAL O NOME PARA PESQUISA:-----|\n";//Digite o nome para pesquisa
@@ -212,60 +212,60 @@ int main()
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t|----------NOME ENCONTRADO----------|\n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   C”DIGO: " << produtos[i].codigo << endl;
+						cout << "\t\t\t\t   C√ìDIGO: " << produtos[i].codigo << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t   NOME: " << produtos[i].nome << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";//mostra o nome
-						cout << "\t\t\t\t   DESCRI«√O: " << produtos[i].descricao << endl;
+						cout << "\t\t\t\t   DESCRI√á√ÉO: " << produtos[i].descricao << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t   QUANTIDADE NO ESTOQUE: " << produtos[i].estoque << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t   PRE«O: " << produtos[i].preco << endl;
+						cout << "\t\t\t\t   PRE√áO: " << produtos[i].preco << endl;
 						cout << "\t\t\t\t|-----------------------------------|\n";
 
 					}
 				}
-				if(!encontrado)//vers„o que o nome n„o foi encontrado
+				if(!encontrado)//vers√£o que o nome n√£o foi encontrado
 				{
 					setColor(textColor, backgroundColor);
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t|--------NOME N√O ENCONTRADO--------|\n" ;
+					cout << "\t\t\t\t|--------NOME N√ÉO ENCONTRADO--------|\n" ;
 					cout << "\t\t\t\t|-----------------------------------|\n" << endl;
 					Sleep(1000);
 				}
 				encontrado = false;
 				break;
 			}
-			else//vers„o em que outra letra foi digitada
+			else//vers√£o em que outra letra foi digitada
 			{
 				setColor(textColor, backgroundColor);//muda cor do fundo e texto
 				cout << "\t\t\t\t|-----------------------------------|\n";
-				cout << "\t\t\t\t|----------Letra Inv·lida-----------|" ;
+				cout << "\t\t\t\t|----------Letra Inv√°lida-----------|" ;
 				cout << "\t\t\t\t|-----------------------------------|\n" << endl;
-				Sleep(1000);//espera um segundo atÈ aparecer o menu novamente
+				Sleep(1000);//espera um segundo at√© aparecer o menu novamente
 			}
 			break;
 
-		case 3://AlteraÁ„o
+		case 3://Altera√ß√£o
 			cout << "\t\t\t\t|-----------------------------------|\n";
-			cout << "\t\t\t\t|-------------ALTERA«√O-------------|\n";
+			cout << "\t\t\t\t|-------------ALTERA√á√ÉO-------------|\n";
 			cout << "\t\t\t\t|-----------------------------------|\n";
-			cout << "\t\t\t\t|----INSIRA O C”DIGO DO PRODUTO:----|\n";
+			cout << "\t\t\t\t|----INSIRA O C√ìDIGO DO PRODUTO:----|\n";
 			cout << "\t\t\t\t";
 			cin >> alterar;
 			for(int i = 0; i < qtd; i++)
 			{
 				if(alterar == produtos[i].codigo)
 				{
-					encontrado = true;//define que o cÛdigo existe
+					encontrado = true;//define que o c√≥digo existe
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t|-------O QUE DESEJA ALTERAR?-------|\n";
-					cout << "\t\t\t\t|N - Nome, C - CÛdigo, D - DescriÁ„o|\n";//seleciona o que ir· ser alterado
-					cout << "\t\t\t\t|-----Q - Quantidade, P - PreÁo-----|\n";
+					cout << "\t\t\t\t|N - Nome, C - C√≥digo, D - Descri√ß√£o|\n";//seleciona o que ir√° ser alterado
+					cout << "\t\t\t\t|-----Q - Quantidade, P - Pre√ßo-----|\n";
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t";
 					cin >> desejado;
-					if(desejado == 'N' || desejado == 'n')//alteraÁ„o do nome
+					if(desejado == 'N' || desejado == 'n')//altera√ß√£o do nome
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t|---------QUAL O NOVO NOME?---------|\n";
@@ -275,26 +275,26 @@ int main()
 						getline(cin, produtos[i].nome);
 						break;
 					}
-					else if(desejado == 'C' || desejado == 'c')//alteraÁ„o do cÛdigo
+					else if(desejado == 'C' || desejado == 'c')//altera√ß√£o do c√≥digo
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|--------QUAL O NOVO C”DIGO?--------| \n";
+						cout << "\t\t\t\t|--------QUAL O NOVO C√ìDIGO?--------| \n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t";
 						cin >> produtos[i].codigo;
 						break;
 					}
-					else if(desejado == 'D' || desejado == 'd')//alteraÁ„o da descriÁ„o
+					else if(desejado == 'D' || desejado == 'd')//altera√ß√£o da descri√ß√£o
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|------QUAL A NOVA DESCRI«√O?-------|\n";
+						cout << "\t\t\t\t|------QUAL A NOVA DESCRI√á√ÉO?-------|\n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t";
 						cin.ignore();
 						getline(cin, produtos[i].descricao);
 						break;
 					}
-					else if(desejado == 'Q' || desejado == 'q')//alteraÁ„o do estoque
+					else if(desejado == 'Q' || desejado == 'q')//altera√ß√£o do estoque
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t|------QUAL A NOVA QUANTIDADE?------|\n";
@@ -303,7 +303,7 @@ int main()
 						cin >> produtos[i].estoque;
 						break;
 					}
-					else if(desejado == 'P' || desejado == 'p')//alteraÁ„o do preÁo
+					else if(desejado == 'P' || desejado == 'p')//altera√ß√£o do pre√ßo
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t|--------QUAL O NOVO VALOR?---------|\n";
@@ -316,49 +316,49 @@ int main()
 					{
 						setColor(textColor, backgroundColor);//muda cor do fundo e texto
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|---------OP«√O INV¡LIDA!!!---------|\n";
+						cout << "\t\t\t\t|---------OP√á√ÉO INV√ÅLIDA!!!---------|\n";
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						Sleep(1000);//espera um segundo atÈ o menu ser mostrado novamente
+						Sleep(1000);//espera um segundo at√© o menu ser mostrado novamente
 						break;
 					}
 				}
 
 			}
-			if(!encontrado)//cÛdigo n„o foi encontrado
+			if(!encontrado)//c√≥digo n√£o foi encontrado
 			{
 				setColor(textColor, backgroundColor);
 				cout << "\t\t\t\t|-----------------------------------|\n";
-				cout << "\t\t\t\t|-------C”DIGO N√O ENCONTRADO=------|\n" ;
+				cout << "\t\t\t\t|-------C√ìDIGO N√ÉO ENCONTRADO=------|\n" ;
 				cout << "\t\t\t\t|-----------------------------------|\n" << endl;
 				Sleep(1000);
 			}
 			encontrado = false;
 			break;
-		case 4://Exclus„o
+		case 4://Exclus√£o
 			cout << "\t\t\t\t|-----------------------------------|\n";
-			cout << "\t\t\t\t|----QUAL O C”DIGO PARA REALIZAR----|\n";//digite o codigo para exclusao do produto
-			cout << "\t\t\t\t|-------A EXCLUS√O DOS DADOS?-------|\n";
+			cout << "\t\t\t\t|----QUAL O C√ìDIGO PARA REALIZAR----|\n";//digite o codigo para exclusao do produto
+			cout << "\t\t\t\t|-------A EXCLUS√ÉO DOS DADOS?-------|\n";
 			cout << "\t\t\t\t|-----------------------------------|\n";
 			cout << "\t\t\t\t";
 			cin >> codigoe;
 			char escolha;
 			for(int i = 0; i < qtd; i++)
 			{
-				if(codigoe == produtos[i].codigo)//compara se o cÛdigo existe
+				if(codigoe == produtos[i].codigo)//compara se o c√≥digo existe
 				{
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   C”DIGO: " << produtos[i].codigo << endl;
+					cout << "\t\t\t\t   C√ìDIGO: " << produtos[i].codigo << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t   NOME: " << produtos[i].nome << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   DESCRI«√O: " << produtos[i].descricao << endl;//mostra as informaÁıes que est„o no cÛdigo
+					cout << "\t\t\t\t   DESCRI√á√ÉO: " << produtos[i].descricao << endl;//mostra as informa√ß√µes que est√£o no c√≥digo
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t   QUANTIDADE NO ESTOQUE: " << produtos[i].estoque << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   PRE«O: " << produtos[i].preco << endl << endl;
+					cout << "\t\t\t\t   PRE√áO: " << produtos[i].preco << endl << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t|-DESEJA EXCLUIR ESTAS INFORMA«’ES?-|\n";
-					cout << "\t\t\t\t|---------S - SIM e N - N√O---------|\n";//confirma a exclus„o
+					cout << "\t\t\t\t|-DESEJA EXCLUIR ESTAS INFORMA√á√ïES?-|\n";
+					cout << "\t\t\t\t|---------S - SIM e N - N√ÉO---------|\n";//confirma a exclus√£o
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t";
 					cin >> escolha;
@@ -373,15 +373,15 @@ int main()
 						produtos[i].estoque = 0;
 						setColor(textColor, backgroundColor);//muda cor do fundo e texto
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|-EXCLUS√O REALIZADA COM SUCESSO!!!-|\n";//mostra a mensagem
+						cout << "\t\t\t\t|-EXCLUS√ÉO REALIZADA COM SUCESSO!!!-|\n";//mostra a mensagem
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						Sleep(1000);//espera um segundo atÈ aparecer novamente o menu
+						Sleep(1000);//espera um segundo at√© aparecer novamente o menu
 						break;
 					}
 					else if(escolha == 'n' || escolha == 'N')//compara se o usuario negou
 					{
 						cout << "\t\t\t\t|-----------------------------------|\n";
-						cout << "\t\t\t\t|-----DIGITE O C”DIGO NOVAMENTE:----|\n";//pede para digitar novamente
+						cout << "\t\t\t\t|-----DIGITE O C√ìDIGO NOVAMENTE:----|\n";//pede para digitar novamente
 						cout << "\t\t\t\t|-----------------------------------|\n";
 						cout << "\t\t\t\t";
 						cin >> codigoe;
@@ -394,27 +394,27 @@ int main()
 			{
 				setColor(textColor, backgroundColor);//muda cor do texto e fundo
 				cout << "\t\t\t\t|-----------------------------------|\n";
-				cout << "\t\t\t\t|----CADASTRO N√O ENCONTRADO!!!-----|\n";
+				cout << "\t\t\t\t|----CADASTRO N√ÉO ENCONTRADO!!!-----|\n";
 				cout << "\t\t\t\t|-----------------------------------|\n";
 			}
-			Sleep(1000);//espera um segundo atÈ o menu ser mostrado novamente
+			Sleep(1000);//espera um segundo at√© o menu ser mostrado novamente
 
 			break;
 		case 5://Mostra Todos os Dados Cadastrados
 			for(int i = 0; i < qtd; i++)
 			{
-				if(produtos[i].nome != "")//confere se o vetor n„o est· vazio
+				if(produtos[i].nome != "")//confere se o vetor n√£o est√° vazio
 				{
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   C”DIGO: " << produtos[i].codigo << endl;
+					cout << "\t\t\t\t   C√ìDIGO: " << produtos[i].codigo << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t   NOME: " << produtos[i].nome << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   DESCRI«√O: " << produtos[i].descricao << endl;
+					cout << "\t\t\t\t   DESCRI√á√ÉO: " << produtos[i].descricao << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << "\t\t\t\t   QUANTIDADE NO ESTOQUE: " << produtos[i].estoque << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
-					cout << "\t\t\t\t   PRE«O: " << produtos[i].preco << endl;
+					cout << "\t\t\t\t   PRE√áO: " << produtos[i].preco << endl;
 					cout << "\t\t\t\t|-----------------------------------|\n";
 					cout << endl << endl;
 					encontrado = true;
@@ -425,12 +425,12 @@ int main()
 			{
 				setColor(textColor, backgroundColor);//muda cor do texto e fundo
 				cout << "\t\t\t\t|-----------------------------------|\n";
-				cout << "\t\t\t\t|----CADASTRO N√O ENCONTRADO!!!-----|\n";
+				cout << "\t\t\t\t|----CADASTRO N√ÉO ENCONTRADO!!!-----|\n";
 				cout << "\t\t\t\t|-----------------------------------|\n";
 			}else{
 				Sleep(5000);
 			}
-			Sleep(1000);//espera um segundo atÈ o menu ser mostrado novamente
+			Sleep(1000);//espera um segundo at√© o menu ser mostrado novamente
 			encontrado=false;
 			break;
 		case 0://Sair do Programa
@@ -439,17 +439,17 @@ int main()
 			cout << "\t\t\t\t|-------Saindo do Programa!!!-------|\n";
 			cout << "\t\t\t\t|-----------------------------------|\n"<< endl;
 			break;
-		default://OpÁ„o Inv·lida caso a pessoa digite qualquer n˙mero que n„o seja entre 0 e 5
+		default://Op√ß√£o Inv√°lida caso a pessoa digite qualquer n√∫mero que n√£o seja entre 0 e 5
 			//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 236);
 			setColor(textColor, backgroundColor);//muda cor do fundo e texto
 			cout << "\t\t\t\t|-----------------------------------|\n";
-			cout << "\t\t\t\t|---------OpÁ„o Inv·lida!!!---------|\n" ;
+			cout << "\t\t\t\t|---------Op√ß√£o Inv√°lida!!!---------|\n" ;
 			cout << "\t\t\t\t|-----------------------------------|\n" << endl;
 			Sleep(1000);//espera um segundo para aparecer o menu novamente
 			break;
 		}
 	}
-	while(opc != 0);//finaliza a repetiÁ„o se o n˙mero digitado for igual a zero
+	while(opc != 0);//finaliza a repeti√ß√£o se o n√∫mero digitado for igual a zero
 
 	return 0;
 }
